@@ -55,15 +55,6 @@ export default {
         ["Sommet", "premiere_techno/Fonctions/Fonctions_degre_2/Sommet/Sommet.html"]
         ]
     },
-    'Fonctions de degré 3': {
-        "image": 9,
-        "thèmes fiche": [
-            ['Fonctions de degré 3(calculs)', 'pdf/premiere_spe/fonctions/Fonctionsdedegre3(calculs).pdf'],
-            ['Fonctions de degré 3(graphiques)', 'pdf/premiere_spe/fonctions/Fonctionsdedegre3(graphiques).pdf'],
-        ],
-        "thèmes ligne": [
-        ]
-    },
     'Suites géométriques': {
         "image": 5,
         "thèmes fiche": [
@@ -93,7 +84,10 @@ export default {
     },
     'Fonctions de degré 3': {
         "image": 8,
-        "thèmes fiche": [['#', '#']],
+        "thèmes fiche": [
+            ['Fonctions de degré 3(calculs)', 'pdf/premiere_spe/fonctions/Fonctionsdedegre3(calculs).pdf'],
+            ['Fonctions de degré 3(graphiques)', 'pdf/premiere_spe/fonctions/Fonctionsdedegre3(graphiques).pdf'],
+        ],
         "thèmes ligne": [["Forme développée", "premiere_techno/Fonctions/Fonctions_degre_3/Forme_developpee/Forme_developpee.html"]
         ]
     }

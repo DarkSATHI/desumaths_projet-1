@@ -9,12 +9,12 @@
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselClass" data-bs-slide="prev"
             @click="accordion_class_modifier">
-            <span class="carousel-control-prev-icon visually-hidden" aria-hidden="true"></span>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselClass" data-bs-slide="next"
             @click="accordion_class_modifier">
-            <span class="carousel-control-next-icon visually-hidden" aria-hidden="true"></span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>

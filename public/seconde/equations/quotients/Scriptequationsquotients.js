@@ -110,7 +110,7 @@ let correction = document.getElementById('correction');
 let recommencer = document.getElementById('recommencer');
 
 let a,b,c,d,e,f,oppd,valint,valintsimp,valintrepsimp,signevalint,simplyvalint,valintsimpegal,valintsimply,signeb,signed,signee,signef,pgda,pgdb,pgdc,pgdd,ce1,de,
-signede,af,bf,signebf,opaf,signeopaf,opde,signeopde,coefx,reels,fracsimplifiee,repsimp,signesol,solsimpeagal,solsimp1,k,kenonce;
+signede,af,bf,signebf,opaf,signeopaf,opde,signeopde,coefx,reels,fracsimplifiee,repsimp,signesol,solsimpeagal,solsimp1,k,kenonce,listecorrections,listesolutions,listenonces;
 
 function genererExercice() {
   a = positifnegatif(nbrealéa(1,10));
@@ -145,7 +145,7 @@ function genererExercice() {
   signeopaf = rienplus(opaf);
   opde = -de;
   signeopde = rienplus(opde);
-  coefx = ce+opaf;
+  coefx = ce1+opaf;
   reels = bf+opde;
   fracsimplifiee = simplifierfraction(reels,coefx); 
   repsimp = fracsimp(fracsimplifiee[0],fracsimplifiee[1]);
@@ -156,7 +156,7 @@ function genererExercice() {
   kenonce = cas(valintrepsimp[0],valintrepsimp[1]);
 
 
-let listecorrrections = [`$\\begin{array}{rcrcl} \\dfrac{${a}x${signeb}${b}}{${c}x${signed}${d}}=\\dfrac{${e}}{${f}} & \\iff & ${e}\\times (${c}x${signed}${d}) & = &${f}\\times (${a}x${signeb}${b}) \\left(\\text{produit en croix avec}~x\\neq \\dfrac{${oppd}}{${c}} ${valintsimpegal} \\right) \\\\
+listecorrrections = [`$\\begin{array}{rcrcl} \\dfrac{${a}x${signeb}${b}}{${c}x${signed}${d}}=\\dfrac{${e}}{${f}} & \\iff & ${e}\\times (${c}x${signed}${d}) & = &${f}\\times (${a}x${signeb}${b}) \\left(\\text{produit en croix avec}~x\\neq \\dfrac{${oppd}}{${c}} ${valintsimpegal} \\right) \\\\
 & \\iff & ${e}\\times ${pgdc[0]}${c}x${pgdc[1]} ${signee}${e}\\times ${pgdd[0]}${d}${pgdd[1]} & = & ${f}\\times ${pgda[0]}${a}x${pgda[1]} ${signef}${f}\\times ${pgdb[0]}${b}${pgdb[1]} \\\\
 & \\iff & ${ce1}x ${signede}${de} & = & ${af}x ${signebf}${bf} \\\\
 & \\iff & ${ce1}x ${signeopaf}${opaf}x & = & ${bf} ${signeopde}${opde} \\\\
@@ -169,9 +169,9 @@ let listecorrrections = [`$\\begin{array}{rcrcl} \\dfrac{${a}x${signeb}${b}}{${c
 & = & \\dfrac{${e}}{${f}}\\iff ${coefx}x & = & ${reels} \\\\
 & \\iff & x & = & \\dfrac{${reels}}{${coefx}} ${solsimpeagal} \\end{array}$ `];
 
-let listesolutions = [`Solution : $S=\\left\\{ ${solsimp1} \\right\\} $`,`Solution : $S=\\left\\{ ${solsimp1} \\right\\} $`];
+listesolutions = [`Solution : $S=\\left\\{ ${solsimp1} \\right\\} $`,`Solution : $S=\\left\\{ ${solsimp1} \\right\\} $`];
 
-let listenonces = [`Résoudre dans $\\mathbb{R}~\\backslash \\left\\{ ${valintsimply} \\right\\} $ l'équation : $\\dfrac{${a}x${signeb}${b}}{${c}x${signed}${d}}=\\dfrac{${e}}{${f}}$`,
+listenonces = [`Résoudre dans $\\mathbb{R}~\\backslash \\left\\{ ${valintsimply} \\right\\} $ l'équation : $\\dfrac{${a}x${signeb}${b}}{${c}x${signed}${d}}=\\dfrac{${e}}{${f}}$`,
 `Résoudre dans $\\mathbb{R}~\\backslash \\left\\{ ${valintsimply} \\right\\} $ l'équation : $\\dfrac{${a}x${signeb}${b}}{${c}x${signed}${d}}=\\dfrac{${e}}{${f}}$`];
 
 enonce.innerHTML = listenonces[kenonce] ;

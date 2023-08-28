@@ -107,7 +107,7 @@ let solutions = document.getElementById('solutions');
 let correction = document.getElementById('correction');
 let recommencer = document.getElementById('recommencer');
 
-let a,a1,b,sb,c,c1,d,sd,oppc,soppc,oppc1,oppb,soppb,coeffx,coeffreels,scoefreels,rep,repsimp,srepsimple,k,rep2,fracfinale;
+let a,a1,b,sb,c,c1,d,sd,oppc,soppc,oppc1,oppb,soppb,coeffx,coeffreels,scoefreels,rep,repsimp,srepsimple,k,rep2,fracfinale,listecorrections,listesolutions;
 
 
 function genererExercice() {
@@ -137,7 +137,7 @@ function genererExercice() {
 
 
 
-let listecorrections = [`$\\underline{\\text{Méthode &laquo collège &raquo :}}$<br><br>
+listecorrections = [`$\\underline{\\text{Méthode &laquo collège &raquo :}}$<br><br>
 $\\begin{array}{lrcl} & ${a1}x${sb}${b} & = & ${c1}x${sd}${d} \\\\
 \\iff & ${a1}x~\\underbrace{${sb}${b} \\color{blue}{${soppb}${oppb}}}_{=~0} & = & ${c1}x${sd}${d} \\color{blue}{${soppb}${oppb}} \\\\
 \\iff & ${a1}x & = & ${c1}x${scoefreels}${coeffreels} \\\\
@@ -168,15 +168,15 @@ $\\begin{array}{lrcl} & ${a1}x${sb}${b} & = & ${c1}x${sd}${d} \\\\
 \\iff & x & = & \\dfrac{${coeffreels}}{${coeffx}}=${rep2}
 \\end{array}$`];
 
-let listesolutions = [`$S=\\left\\{ ${srepsimple}\\dfrac{${repsimp[0]}}{${repsimp[1]}} \\right\\}$`,
+listesolutions = [`$S=\\left\\{ ${srepsimple}\\dfrac{${repsimp[0]}}{${repsimp[1]}} \\right\\}$`,
 `$S=\\left\\{${rep2}\\right\\}$`];
 
-}
 
 enonce.innerHTML = `Résoudre dans $\\mathbb{R}$ l'équation : $${a1}x${sb}${b}=${c1}x${sd}${d}$`;
 solution.innerHTML = listesolutions[k];
 correctiond.innerHTML = listecorrections[k];
 
+}
 window.addEventListener('load', function () {
     genererExercice()
     MathJax.Hub.Queue(["Typeset", MathJax.Hub]);

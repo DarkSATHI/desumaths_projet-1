@@ -29,21 +29,35 @@ function sign1() {
 
 
 function signe() {
-    let a = nbrealéa(1, 2);
+    let a = nbrealéa(1,2);
     let sig;
-    if (a == 1) { sig = '+'; } else { sig = '-'; }
+    if (a==1) {sig='+';} else {sig='-';}
     return sig;
 }
 
-function signedeuxiemeparenthese(s1, s2) {
+function signedeuxiemeparenthese(s1,s2) {
     let reponse;
-    if (s1 == '+' && s2 == '') { reponse = '+'; }
-    else if (s1 == '+' && s2 == '+') { reponse = '+'; }
-    else if (s1 == '-' && s2 == '-') { reponse = '+'; }
-    else { reponse = '-'; }
+    if (s1=='+' && s2=='') {reponse='+';}
+    else if (s1=='+' && s2=='+') {reponse='+';}
+    else if (s1=='-' && s2=='-') {reponse='+';}
+    else {reponse='-';}
     return reponse;
 }
 
+function unoupasun(a) {
+    let rep;
+    if (a==1) {rep=``;} else {
+        if (a==-1) {rep=`-`;} else {rep=`${a}`;}}
+    return rep;
+}
+
+function parenthesesgd(a) {
+    let rep;
+    let parg;
+    let pard;
+    if (a=='-') {parg='(';pard=')';} else {parg='';pard='';}
+    return rep = [parg,pard];
+}
 
 let enonce = document.getElementById('enonce');
 let solution = document.getElementById('solution');
@@ -52,50 +66,48 @@ let solutions = document.getElementById('solutions');
 let correction = document.getElementById('correction');
 let recommencer = document.getElementById('recommencer');
 
-let a ,b ,identité ,signe1 ,acarré ,ab2 ,bcarré ,sig1 ,sig2;
-
+let a,a1,b,identite,signe1,pgd,acarre,acarre1,ab2,bcarre,sig1,sig2;
 
 function genererExercice() {
 
-
-     a = nbrealéa(1, 9);
-     b = nbrealéa(1, 9);
-     identité = nbrealéa(0, 2);
-     signe1 = sign1();
-     acarré = a * a;
-     ab2 = 2 * a * b;
-     bcarré = b * b;
-     sig1 = signedeuxiemeparenthese('+', signe1);
-     sig2 = signedeuxiemeparenthese('-', signe1);
-
-     enonce = document.getElementById('enonce');
-     correctiond = document.getElementById('correctiond');
-     correction = document.getElementById('correction');
-     solutions = document.getElementById('solutions');
-     solution = document.getElementById('solution');
+  a = nbrealéa(1, 9);
+  a1 = unoupasun(a);
+  b = nbrealéa(1, 9);
+  identite = nbrealéa(0,2);
+  signe1 = sign1();
+  pgd = parenthesesgd(signe1);
+  acarre = a * a;
+  acarre1 = unoupasun(acarre);
+  ab2 = 2 * a * b;
+  bcarre = b * b;
+  sig1 = signedeuxiemeparenthese('+',signe1);
+  sig2 = signedeuxiemeparenthese('-',signe1);
 
 
-    let listenonces = [`Développer : $\\boldsymbol{\\left(${signe1} ~ ${a}x + ${b}\\right)^2}$`,
-    `Développer : $\\boldsymbol{\\left(${signe1} ~ ${a}x - ${b}\\right)^2}$`,
-    `Développer : $\\boldsymbol{\\left(${a}x + ${b}\\right) \\left(${a}x - ${b}\\right)}$`
-    ]
+let listenonces = [`Développer : $\\left(${signe1} ~ ${a1}x + ${b}\\right)^2$`,
+    `Développer : $\\left(${signe1} ~ ${a1}x - ${b}\\right)^2$`,
+    `Développer : $\\left(${a1}x + ${b}\\right) \\left(${a1}x - ${b}\\right)$`
+]
 
-    let listeSolutions = [`Solution : $${acarré}x^2 ${sig1} ${ab2}x + ${bcarré}$`,
-    `Solution : $${acarré}x^2 ${sig2} ${ab2}x + ${bcarré}$`,
-    `Solution : $${acarré}x^2 - ${bcarré}$`
-    ]
+let listeSolutions = [`Solution : $${acarre1}x^2 ${sig1} ${ab2}x + ${bcarre}$`,
+    `Solution : $${acarre1}x^2 ${sig2} ${ab2}x + ${bcarre}$`,
+    `Solution : $${acarre1}x^2 - ${bcarre}$`
+]
 
-    let listeCorrections = [`$\\begin{array}{rcl} \\left(${signe1} ~ ${a}x + ${b}\\right)^2 & = & \\underbrace{(${signe1} ${a}x)^2}_{a^2} + \\underbrace{2\\times (${signe1} ${a}x) \\times ${b}}_{2ab} + \\underbrace{(${b})^2}_{b^2} \\\\
-& = & ${acarré}x^2 ${sig1} ${ab2}x + ${bcarré} \\end{array}$`,
-    `$\\begin{array}{rcl} \\left(${signe1} ~ ${a}x - ${b}\\right)^2  & = & \\underbrace{(${signe1} ${a}x)^2}_{a^2} - \\underbrace{2\\times (${signe1} ${a}x) \\times ${b}}_{2ab} + \\underbrace{(${b})^2}_{b^2} \\\\
-& = & ${acarré}x^2 ${sig2} ${ab2}x + ${bcarré} \\end{array}$`,
-    `$\\begin{array}{rcl} \\underbrace{\\left(${a}x + ${b}\\right)}_{a+b} \\underbrace{\\left(${a}x - ${b}\\right)}_{a-b} & = & \\underbrace{(${a}x)^2}_{a^2} - \\underbrace{${b}^2}_{b^2} \\\\
-& = & ${acarré}x^2 - ${bcarré} \\end{array}$`
-    ]
+let listeCorrections = [`On va utiliser l'identité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $\\color{blue}{a=${signe1}${a1}x}$ et $\\color{green}{b=${b}}$ : <br><br>
+$\\begin{array}{rcl} \\underbrace{\\left(\\color{blue}{${signe1} ~ ${a1}x} + \\color{green}{${b}}\\right)^2}_{(\\color{blue}{a}+\\color{green}{b})^2} & = & \\underbrace{(\\color{blue}{${signe1} ${a1}x})^2}_{\\color{blue}{a}^2} + \\underbrace{2\\times ${pgd[0]}\\color{blue}{${signe1}${a1}x}${pgd[1]} \\times \\color{green}{${b}}}_{2\\color{blue}{a}\\color{green}{b}} + \\underbrace{\\color{green}{${b}}^2}_{\\color{green}{b}^2} \\\\
+& = & ${acarre1}x^2 ${sig1} ${ab2}x + ${bcarre} \\end{array}$`,
+`On va utiliser l'identité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $\\color{blue}{a=${signe1}${a1}x}$ et $\\color{green}{b=${b}}$ : <br><br>
+$\\begin{array}{rcl} \\underbrace{\\left(\\color{blue}{${signe1} ~ ${a1}x} - \\color{green}{${b}}\\right)^2}_{(\\color{blue}{a}-\\color{green}{b})^2}  & = & \\underbrace{(\\color{blue}{${signe1} ${a1}x})^2}_{\\color{blue}{a}^2} - \\underbrace{2\\times ${pgd[0]}\\color{blue}{${signe1}${a1}x}${pgd[1]} \\times \\color{green}{${b}}}_{2\\color{blue}{a}\\color{green}{b}} + \\underbrace{\\color{green}{${b}}^2}_{\\color{green}{b}^2} \\\\
+& = & ${acarre1}x^2 ${sig2} ${ab2}x + ${bcarre} \\end{array}$`,
+`On va utiliser l'identité remarquable $(a+b)(a-b)=a^2-b^2$ avec $\\color{blue}{a=${signe1}${a1}x}$ et $\\color{green}{b=${b}}$ : <br><br>
+$\\begin{array}{rcl} \\underbrace{\\left(\\color{blue}{${a1}x} + \\color{green}{${b}}\\right)}_{\\color{blue}{a}+\\color{green}{b}}~\\underbrace{\\left(\\color{blue}{${a1}x} - \\color{green}{${b}}\\right)}_{\\color{blue}{a}-\\color{green}{b}} & = & \\underbrace{(\\color{blue}{${a1}x})^2}_{\\color{blue}{a}^2} - \\underbrace{\\color{green}{${b}}^2}_{\\color{green}{b}^2} \\\\
+& = & ${acarre1}x^2 - ${bcarre} \\end{array}$`
+]
 
-    enonce.innerHTML = listenonces[identité];
-    solution.innerHTML = listeSolutions[identité];
-    correctiond.innerHTML = listeCorrections[identité];
+enonce.innerHTML = listenonces[identite];
+solution.innerHTML = listeSolutions[identite];
+correctiond.innerHTML = listeCorrections[identite];
 
 }
 

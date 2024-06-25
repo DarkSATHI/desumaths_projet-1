@@ -60,6 +60,27 @@ function fracsimp(num,denom) {
     return rep; 
 }
 
+function fracoupasfrac(num,denom) {
+    let rep;
+    if (denom==1) {rep=`${num}`;} else {rep=`\\dfrac{${num}}{${denom}}`;}
+    return rep;
+}
+
+function simpfracmax(num,denom){
+    let rep;
+    let frac1 = simplifierfraction(num,denom);
+    let frac2 = fracsimp(frac1[0],frac1[1]);
+    let frac3 = fracoupasfrac(frac2[0],frac2[1]);
+    return rep = frac3;
+}
+
+function unoupasun(a) {
+    let rep;
+    if (a==1) {rep=``;} else {
+        if (a==-1) {rep=`-`;} else {rep=`${a}`;}}
+    return rep;
+}
+
 function coefdiff(a) {
     let rep = nbreouoppose(nbrealéa(1,10));
     while (a==rep) {rep = nbreouoppose(nbrealéa(1,10));}
@@ -73,13 +94,11 @@ function cas(denom) {
     return k;
 }
 
-function test_réponse(a,b,c) {
-    let test;
-    let div=a/b;
-    if (div==c) {test='Bonne réponse !!';} else {test='Mauvaise réponse';}
-    return test;
+function repfrac(num1,denom1,num2,denom2,signe) {
+    let rep;
+    if (num1==num2 && denom1==denom2) {rep=``;} else {rep=`=${signe}\\dfrac{${num2}}{${denom2}}`;}
+    return rep;
 }
-
 
 let enonce = document.getElementById('enonce');
 let solution = document.getElementById('solution');
@@ -88,47 +107,76 @@ let solutions = document.getElementById('solutions');
 let correction = document.getElementById('correction');
 let recommencer = document.getElementById('recommencer');
 
+let a,a1,b,sb,c,c1,d,sd,oppc,soppc,oppc1,oppb,soppb,coeffx,coeffreels,scoefreels,rep,repsimp,srepsimple,k,rep2,fracfinale,listecorrections,listesolutions;
+
 
 function genererExercice() {
 
-    let a = nbreouoppose(nbrealéa(1,10));
-    let b = nbreouoppose(nbrealéa(1,10));
-    let c = coefdiff(a);
-    let d = nbreouoppose(nbrealéa(1,10));
-    let sb = rienplus(b);
-    let sd = rienplus(d);
-    let oppc = -c;
-    let soppc = rienplus(oppc);
-    let oppb = -b;
-    let soppb = rienplus(oppb);
-    let coeffx = a-c;
-    let coeffreels = d-b;
-    let rep = simplifierfraction(coeffreels,coeffx);
-    let repsimp = fracsimp(rep[0],rep[1]);
-    let srepsimple = rienmoins(coeffreels/coeffx);
-    let k = cas(rep[1]);
-    let rep2 = coeffreels/coeffx;
-    
-   
-    let listecorrections = [`$\\begin{array}{lrcl} & ${a}x${sb}${b} & = & ${c}x${sd}${d} \\\\
-    \\iff & ${a}x ${soppc}${oppc}x & = & ${d}${soppb}${oppb} \\\\
-    \\iff & ${coeffx}x & = & ${coeffreels} \\\\
-    \\iff & x & = & \\dfrac{${coeffreels}}{${coeffx}}=${srepsimple}\\dfrac{${repsimp[0]}}{${repsimp[1]}}~\\text{(simplifiée)}
-    \\end{array}$`,
-    `$\\begin{array}{lrcl} & ${a}x${sb}${b} & = & ${c}x${sd}${d} \\\\
-    \\iff & ${a}x ${soppc}${oppc}x & = & ${d}${soppb}${oppb} \\\\
-    \\iff & ${coeffx}x & = & ${coeffreels} \\\\
-    \\iff & x & = & \\dfrac{${coeffreels}}{${coeffx}}=${rep2}~\\text{(simplifiée)}
-    \\end{array}$`];
-    
-    let listesolutions = [`$S=\\left\\{ ${srepsimple}\\dfrac{${repsimp[0]}}{${repsimp[1]}} \\right\\}$`,
-    `$S=\\left\\{${rep2}\\right\\}$`];
-    
-    enonce.innerHTML = `Résoudre dans $\\mathbb{R}$ l'équation : $${a}x${sb}${b}=${c}x${sd}${d}$`;
-    solution.innerHTML = listesolutions[k];
-    correctiond.innerHTML = listecorrections[k];
-}
+  a = nbreouoppose(nbrealéa(1,10));
+  a1 = unoupasun(a);
+  b = nbreouoppose(nbrealéa(1,10));
+  sb = rienplus(b);
+  c = coefdiff(a);
+  c1 = unoupasun(c);
+  d = nbreouoppose(nbrealéa(1,10));
+  sd = rienplus(d);
+  oppc = -c;
+  soppc = rienplus(oppc);
+  oppc1 = unoupasun(oppc);
+  oppb = -b;
+  soppb = rienplus(oppb);
+  coeffx = a-c;
+  coeffreels = d-b;
+  scoefreels = rienplus(coeffreels);
+  rep = simplifierfraction(coeffreels,coeffx);
+  repsimp = fracsimp(rep[0],rep[1]);
+  srepsimple = rienmoins(coeffreels/coeffx);
+  k = cas(rep[1]);
+  rep2 = coeffreels/coeffx;
+  fracfinale = repfrac(coeffreels,coeffx,repsimp[0],repsimp[1],srepsimple);
 
+
+
+listecorrections = [`$\\underline{\\text{Méthode &laquo collège &raquo :}}$<br><br>
+$\\begin{array}{lrcl} & ${a1}x${sb}${b} & = & ${c1}x${sd}${d} \\\\
+\\iff & ${a1}x~\\underbrace{${sb}${b} \\color{blue}{${soppb}${oppb}}}_{=~0} & = & ${c1}x${sd}${d} \\color{blue}{${soppb}${oppb}} \\\\
+\\iff & ${a1}x & = & ${c1}x${scoefreels}${coeffreels} \\\\
+\\iff & ${a1}x~\\color{green}{${soppc}${oppc1}x} & = & \\underbrace{${c1}x~\\color{green}{${soppc}${oppc1}x}}_{=~0}${scoefreels}${coeffreels} \\\\
+\\iff & ${coeffx}x & = & ${coeffreels} \\\\
+\\iff & \\dfrac{${coeffx}~x}{\\color{red}{${coeffx}}} & = & \\dfrac{${coeffreels}}{\\color{red}{${coeffx}}} \\\\
+\\iff & x & = & \\dfrac{${coeffreels}}{${coeffx}}${fracfinale}
+\\end{array}$<br><br>
+$\\underline{\\text{Méthode &laquo lycée &raquo :}}$<br><br>
+$\\begin{array}{lrcl} & ${a1}x${sb}${b} & = & ${c1}x${sd}${d} \\\\
+\\iff & ${a1}x ${soppc}${oppc1}x & = & ${d}${soppb}${oppb} \\\\
+\\iff & ${coeffx}x & = & ${coeffreels} \\\\
+\\iff & x & = & \\dfrac{${coeffreels}}{${coeffx}}${fracfinale}
+\\end{array}$`,
+`$\\underline{\\text{Méthode &laquo collège &raquo :}}$<br><br>
+$\\begin{array}{lrcl} & ${a1}x${sb}${b} & = & ${c1}x${sd}${d} \\\\
+\\iff & ${a1}x~\\underbrace{${sb}${b} \\color{blue}{${soppb}${oppb}}}_{=~0} & = & ${c1}x${sd}${d} \\color{blue}{${soppb}${oppb}} \\\\
+\\iff & ${a1}x & = & ${c1}x${scoefreels}${coeffreels} \\\\
+\\iff & ${a1}x~\\color{green}{${soppc}${oppc1}x} & = & \\underbrace{${c1}x~\\color{green}{${soppc}${oppc1}x}}_{=~0}${scoefreels}${coeffreels} \\\\
+\\iff & ${coeffx}x & = & ${coeffreels} \\\\
+\\iff & \\dfrac{${coeffx}~x}{\\color{red}{${coeffx}}} & = & \\dfrac{${coeffreels}}{\\color{red}{${coeffx}}} \\\\
+\\iff & x & = & \\dfrac{${coeffreels}}{${coeffx}}=${rep2}
+\\end{array}$<br><br>
+$\\underline{\\text{Méthode &laquo lycée &raquo :}}$<br><br>
+$\\begin{array}{lrcl} & ${a1}x${sb}${b} & = & ${c1}x${sd}${d} \\\\
+\\iff & ${a1}x ${soppc}${oppc1}x & = & ${d}${soppb}${oppb} \\\\
+\\iff & ${coeffx}x & = & ${coeffreels} \\\\
+\\iff & x & = & \\dfrac{${coeffreels}}{${coeffx}}=${rep2}
+\\end{array}$`];
+
+listesolutions = [`$S=\\left\\{ ${srepsimple}\\dfrac{${repsimp[0]}}{${repsimp[1]}} \\right\\}$`,
+`$S=\\left\\{${rep2}\\right\\}$`];
+
+
+enonce.innerHTML = `Résoudre dans $\\mathbb{R}$ l'équation : $${a1}x${sb}${b}=${c1}x${sd}${d}$`;
+solution.innerHTML = listesolutions[k];
+correctiond.innerHTML = listecorrections[k];
+
+}
 window.addEventListener('load', function () {
     genererExercice()
     MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
